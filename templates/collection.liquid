@@ -1,0 +1,12 @@
+{% section 'collection-template' %}
+{% section 'recently-viewed-products' %}
+{% section 'collection-footer' %}
+
+
+<script>
+    var customtext = document.getElementById("customseotext").innerHTML;
+    if (customtext) {
+        document.getElementById("seotextwrapper").style.display = "block";
+        document.getElementById("seotextcontainer").innerHTML = customtext;
+    };
+</script>

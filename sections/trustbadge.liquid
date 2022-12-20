@@ -1,0 +1,99 @@
+{% assign bgcolor = section.settings.bgcolor %}
+{% assign badgewidth = section.settings.badgewidth %}
+
+<style>
+    .badgesection {background: {{bgcolor}} ;}
+  	.bimagewrapper { width: {{badgewidth}}px;}
+    svg.trustbadge, .trustbadge {width: 100%;}
+</style>
+
+<section class="Section Section--spacingNormal badgesection">
+    <header class="SectionHeader SectionHeader--center trustbadgehead">
+        <div class="Container">
+            <h3 class="SectionHeader__Heading Heading u-h1">{{ section.settings.sectiontitle}}</h3>
+            <p>{{section.settings.subtitle}} </p>
+        </div>
+    </header>
+    <div class="badgecontainer">
+        {% for block in section.blocks %}
+        <div class="singlebadge">
+          <div class="bimagewrapper"> 
+            {% if block.settings.trustbadge == blank %}
+            {{ 'image' | placeholder_svg_tag: "trustbadge" }}
+            {% else %}
+            {% assign img = block.settings.trustbadge %}
+            <img src="{{img | img_url: '150x'}}" alt="" class="trustbadge">
+            {%endif%}
+          </div>
+            <h3 class="SectionHeader__SubHeading Heading u-h6 trustbadgetext">{{block.settings.trusttext}}</h3>
+        </div>
+
+        {% endfor %}
+    </div>
+</section>
+
+
+
+{% schema %}
+{
+    "name": "Trust Badge Section",
+    "max_blocks": 5,
+    "settings": [
+        {
+            "type": "text",
+            "id": "sectiontitle",
+            "label": "Section Title",
+            "default": "Trust Badges"
+        },
+        {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Descritive text",
+            "default": "Möbel und Einrichtungen aus Holz für die Gestaltung Ihrer Lieblingsplätze gehört zu unseren Stärken. In unserem ofivo®-Onlineshop finden Sie herausragende Tische und Sitzmöbel aus extrem haltbarem, wetterfestem und nachhaltig produziertem Material. Zu unserem Holzsortiment für innen und außen gehören auch Sitzbank-Tisch-Kombinationen mit skandinavischem Design"
+        },
+        {
+            "type": "color",
+            "id": "bgcolor",
+            "label": "Background Color",
+            "default": "#ebebeb"
+        },
+        {
+          	"type": "range",
+          	"id": "badgewidth",
+          	"min": 70,
+          	"max": 150,
+          	"step": 10,
+          	"unit": "px",
+          	"label": "Badge size",
+          	"default": 100
+      	}
+    ],
+    "blocks":[
+    {
+        "name": "Badge",
+        "type": "select",
+        "settings": [
+            {
+                "type": "image_picker",
+                "id": "trustbadge",
+                "label": "Trust Badge"
+            },
+            {
+                "type": "text",
+                "id": "trusttext",
+                "label": "Badge text",
+                "default": "Badge text"
+            }
+        ]
+    }
+    
+    ],
+    "presets": [{
+        "name": "Trust Badges",
+        "category": "Custom Sections",
+        "settings": {},
+        "blocks": []
+      }]
+}
+{% endschema %}
+
